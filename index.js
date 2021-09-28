@@ -4,12 +4,15 @@ for (var i = 0; i < numberOfDrums; i++) {
     document.querySelectorAll(".drum")[i].addEventListener("click", function() {
         var buttonInnerHtml = this.innerHTML;
         playSound(buttonInnerHtml);
+        animation(buttonInnerHtml);
 
     })
 
 }
-document.addEventListener("keydown",function(event){
-    playSound(event.key);
+document.addEventListener("keydown",function(e){
+    playSound(e.key);
+    animation(e.key);
+
 })
 
 function playSound(key){
@@ -43,8 +46,16 @@ function playSound(key){
             snare.play();
             break;
         default:
-            alert("Invalid Key Pressed.");
+            alert("Invalid Key Pressed, Try within W A S D J K L to play.");
 
     }
 
+}
+
+function animation(currentKey){
+    var activeKey = document.querySelector("." + currentKey);
+    activeKey.classList.add("pressed");
+    setTimeout(function(){
+        activeKey.classList.remove("pressed");
+    },100);
 }
